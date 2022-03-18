@@ -1,0 +1,20 @@
+<table class="table table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Titulo</th>
+            <th scope="col">Edicion</th>
+            <th scope="col">Id Autor</th>
+            <th scope="col">Id Categoria</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let libro of libros">
+          <tr>
+            <th scope="row">{{libro.id}}</th>
+            <td>{{libro.titulo}}</td>
+            <td>{{libro.edicion}}</td>
+            <td>{{libro.IdAutor}}</td>
+            <td>{{libro.IdCategoria}}</td>
+          </tr>
+        </tbody>
+      </table>

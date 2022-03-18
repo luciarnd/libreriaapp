@@ -1,0 +1,14 @@
+<table class="table table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Descripcion</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let categoria of categorias">
+          <tr>
+            <th scope="row">{{categoria.id}}</th>
+            <td>{{categoria.descripcion}}</td>
+          </tr>
+        </tbody>
+      </table>
