@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'libreriaapp'`, () => {
+  it(`should have as title 'Libreria'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('libreriaapp');
+    expect(app.title).toEqual('Libreria');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('libreriaapp app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('Libreria app is running!');
   });
 });

@@ -1,0 +1,72 @@
+#main-container {
+    padding: 10px;
+}
+.card-body i{
+    color: black;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.card-body .btn:hover i{
+    color: white;
+
+}
+
+.card-body .btn {
+    margin-right: 10px;
+    height: 30px;
+    width: 30px;
+    padding: 0;
+}
+
+
+#addautor .btn {
+    margin-left: 15px;
+    height: 30px;
+    width: 30px;
+    padding: 0;
+}
+
+#addautor .btn i {
+    text-align: center;
+    vertical-align: middle;
+}
+#addautor .btn:hover i {
+    color: white;
+}
+
+
+#titulo {
+    display: inline;
+    float: left;
+    margin: 20px 0px;
+}
+
+#clear {
+    clear: both;
+}
+
+#addautor {
+    display: inline;
+    float: right;
+    margin: 30px 8px;
+}
+
+.list-group-item {
+    border: 0;
+    padding: 0;
+    margin: 5px;
+}
+
+.list-group-item i {
+    margin: 0px 5px;
+}
+
+.list-group {
+    border-top: solid 1px rgb(184, 184, 184);
+    border-bottom: solid 1px rgb(184, 184, 184);
+}
+
+.m-0 {
+    width: 200px;
+}

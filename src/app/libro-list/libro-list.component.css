@@ -1,0 +1,110 @@
+#main-container {
+    padding: 10px;
+}
+
+h5 {
+    width: 400px;
+}
+
+#cabecera {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+#buscar {
+    margin: 20px 0px;
+}
+
+#buscar input {
+    width: 400px;
+    height: 35px;
+}
+
+
+.form-control {
+    border-color: rgb(255, 196, 0);
+}
+
+.card-body i{
+    color: black;
+    text-align: center;
+    vertical-align: middle;
+
+}
+
+.card-body .btn:hover i{
+    color: white;
+
+}
+
+.card-body .btn {
+    margin-right: 10px;
+    height: 30px;
+    width: 30px;
+    padding: 0;
+}
+
+#addlibro {
+    display: inline;
+    margin: 30px 0px;
+    height: 30px;
+}
+
+#addlibro a {
+    vertical-align: middle;
+}
+#addlibro .btn {
+    margin-left: 15px;
+    height: 30px;
+    width: 30px;
+    padding: 0;
+}
+
+#addlibro .btn i {
+    text-align: center;
+    vertical-align: middle;
+}
+
+
+#addlibro .btn:hover i {
+    color: white;
+}
+
+#ntitulo {
+    display: inline;
+    margin: 20px 0px;
+}
+
+
+.list-group-item {
+    border: 0;
+    padding: 0;
+    margin: 5px;
+}
+
+.list-group-item i {
+    margin: 0px 5px;
+}
+
+.list-group {
+    padding: 3px;
+    border-top: solid 1px rgb(184, 184, 184);
+    border-bottom: solid 1px rgb(184, 184, 184);
+}
+
+select {
+    border-radius: 5px;
+}
+
+.m-0 {
+    width: 200px;
+}
+
+@media (max-width: 700px) {
+    #cabecera {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+}

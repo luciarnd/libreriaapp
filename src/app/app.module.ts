@@ -1,33 +1,27 @@
-import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AutorService } from './services/autor.service';
-import { CategoriaService } from './services/categoria.service';
-import { LibroService } from './services/libro.service';
-import { AutorComponent } from './autor/autor.component';
-import { LibroComponent } from './libro/libro.component';
-import { CategoriaComponent } from './categoria/categoria.component';
+import { AutorListComponent } from './autor-list/autor-list.component';
+import { CategoriaListComponent } from './categoria-list/categoria-list.component';
+import { LibroListComponent } from './libro-list/libro-list.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AutorComponent,
-    LibroComponent,
-    CategoriaComponent,
+    AutorListComponent,
+    CategoriaListComponent,
+    LibroListComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
-  providers: [
-    AutorService,
-    LibroService,
-    CategoriaService
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

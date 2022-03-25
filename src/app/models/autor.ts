@@ -1,4 +1,4 @@
-export interface Autor {
+export class Autor {
     dni: string;
     nombre: string;
     apellido1: string;
