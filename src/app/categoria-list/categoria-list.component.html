@@ -1,29 +1,29 @@
 <div id="main-container">
-<div id="titulo">
-    <h2>Categorias</h2>
-</div>
-<div id="addCategoria">
-    <a>Añadir Categoria<span class="sr-only">(current)</span></a>
-    <a (click)="onOpenModal(null!, 'add')" class="btn btn-outline-warning tooltips"><i class="fa fa-plus fa-xs"></i></a>
-</div>
-<div id="clear"></div>
-<div class="row">
-    <div *ngFor="let categoria of categorias" class="col-md-6 col-xl-3">
-        <div class="card m-b-30">
-            <div class="card-body row">
-                <div class="col-6 card-title mb-0">
-                    <h5>{{categoria?.descripcion}}</h5>
+    <div id="titulo">
+        <h2>Categorias</h2>
+    </div>
+    <div id="addCategoria">
+        <a>Añadir Categoria<span class="sr-only">(current)</span></a>
+        <a (click)="onOpenModal(null!, 'add')" class="btn btn-outline-warning tooltips"><i class="fa fa-plus fa-xs"></i></a>
+    </div>
+    <div id="clear"></div>
+    <div class="row">
+        <div *ngFor="let categoria of categorias" class="col-md-6 col-xl-3">
+            <div class="card m-b-30" > 
+                <div class="card-body row">
+                    <div class="col-6 card-title mb-0">
+                        <h5>{{categoria?.descripcion}}</h5>
+                    </div>
                 </div>
-            </div>
-            <div class="card-body">
-                <div class= "float-right">
-                    <a (click)="onOpenModal(categoria, 'edit')" class="btn btn-outline-warning tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                    <a (click)="onOpenModal(categoria, 'delete')" class="btn btn-outline-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"  aria-hidden="true"></i></a>
+                <div class="card-body">
+                    <div class= "float-right">
+                        <a (click)="onOpenModal(categoria, 'edit')" class="btn btn-outline-warning tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                        <a (click)="onOpenModal(categoria, 'delete')" class="btn btn-outline-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"  aria-hidden="true"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 <!--Add modal-->
 <div class="modal fade" id="addCategoriaModal" tabindex="-1" role="dialog" aria-labelledby="addCategoriaModalLabel" aria-hidden="true">
@@ -38,9 +38,12 @@
           <div class="modal-body">
              <form #addForm="ngForm" (ngSubmit)="onAddCategoria(addForm)">
              <div class="form-group">
-                <label for="descripcion">Descripcion</label>
+                <label for="descripcion">Descripcion<span id="obligatorio"> *</span></label>
                 <input type="text" ngModel name="descripcion" class="form-control" id="descripcion" placeholder="Descripcion" required>
              </div>
+             <div class="campoObligatorio">
+                <p>Todos los campos marcados con <span id="obligatorio"> *</span> son obligatorios.</p>
+            </div>
              <div class="modal-footer">
                 <button type="button" id="add-categoria-form" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 <button [disabled]="addForm.invalid" type="submit" class="btn btn-warning" >Guardar</button>
@@ -51,6 +54,8 @@
     </div>
  </div>
 
+
+<!--Update Categoria-->
 <div class="modal fade" id="updateCategoriaModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -63,10 +68,13 @@
         <div class="modal-body">
             <form #editForm="ngForm">
                 <div class="form-group">
-                    <label for="descripcion">Descripcion</label>
+                    <label for="descripcion">Descripcion<span id="obligatorio"> *</span></label>
                     <input type="text" ngModel="{{updateCategoria?.descripcion}}" name="descripcion" class="form-control" id="descripcion" aria-describedby="emailHelp" placeholder="Descripcion" required>
                 </div>
                 <input type="hidden" ngModel="{{updateCategoria?.id}}" name="id" class="form-control" id="id" placeholder="id">
+                <div class="campoObligatorio">
+                    <p>Todos los campos marcados con <span id="obligatorio"> *</span> son obligatorios.</p>
+                </div>
                 <div class="modal-footer">
                     <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Cerrar</button>
                     <button (click)="onUpdateCategoria(editForm.value)" data-dismiss="modal" class="btn btn-warning">Guardar</button>
@@ -77,6 +85,7 @@
     </div>
 </div>
 
+<!--Delete Categoria-->
 <div class="modal fade" id="deleteCategoriaModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
     <div class="modal-content">

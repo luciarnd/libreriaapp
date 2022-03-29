@@ -53,6 +53,7 @@ export class LibroListComponent implements OnInit {
     }
   
   }
+  
 
   public onUpdateLibro(libro: Libro): void {
   
@@ -122,5 +123,17 @@ export class LibroListComponent implements OnInit {
     button.click();
 
   }
-
+/*
+  getAutores():void {
+    this.autorService.findAll().subscribe(autors => {
+      autors.forEach(autor => {
+        this.autores.push(
+          {
+            text: autor.nombre,
+            value: autor.dni
+          }
+        )
+        });
+    });
+  }*/
 }

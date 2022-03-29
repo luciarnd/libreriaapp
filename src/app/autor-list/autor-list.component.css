@@ -70,3 +70,11 @@
 .m-0 {
     width: 200px;
 }
+
+#obligatorio {
+    color: red;
+}
+
+.campoObligatorio {
+    font-size: 13px;
+}

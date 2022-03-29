@@ -12,8 +12,13 @@ h5 {
     flex-direction: row;
 }
 
+#cabecera div {
+    vertical-align: middle;
+}
+
 #buscar {
     margin: 20px 0px;
+    height: 35px;
 }
 
 #buscar input {
@@ -21,9 +26,16 @@ h5 {
     height: 35px;
 }
 
-
 .form-control {
     border-color: rgb(255, 196, 0);
+}
+
+#obligatorio {
+    color: red;
+}
+
+.campoObligatorio {
+    font-size: 13px;
 }
 
 .card-body i{
