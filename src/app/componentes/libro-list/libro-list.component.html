@@ -1,0 +1,177 @@
+<div id="main-container">
+    <div id="cabecera">
+        <div id="ntitulo">
+            <h2>Libros</h2>
+        </div>
+        <div id="buscar">
+            <form class="form-inline my-2 my-lg-0">
+                <input type="search" (ngModelChange)="search(key.value)" #key="ngModel" ngModel name="key"
+                    id="searchName" class="form-control mr-sm-2" placeholder="Buscar" required>
+            </form>
+        </div>
+        <div id="addlibro">
+            <a>Añadir Libro<span class="sr-only">(current)</span></a>
+            <a (click)="onOpenModal(null!, 'add')" class="btn btn-outline-warning tooltips"><i
+                    class="fa fa-plus fa-xs"></i></a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div *ngFor="let libro of libros" class="col-md-6 col-xl-3">
+            <div class="card m-b-30">
+                <div class="card-body row">
+                    <div class="col-6 card-title mb-0">
+                        <h5>{{libro?.titulo}}</h5>
+                    </div>
+                </div>
+                <ul class="list-group list-group">
+                    <li class="list-group-item"><i class="fa fa-bookmark"></i>Edición: {{libro?.edicion}}</li>
+                    <li class="list-group-item"><i class="fa fa-user"></i>{{libro?.autor}}</li>
+                    <li class="list-group-item"><i class="fa fa-file"></i>{{libro?.categoria}}</li>
+                </ul>
+                <div class="card-body">
+                    <div class="float-right">
+                        <a (click)="onOpenModal(libro, 'edit')" class="btn btn-outline-warning tooltips"
+                            data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"
+                                aria-hidden="true"></i></a>
+                        <a (click)="onOpenModal(libro, 'delete')" class="btn btn-outline-secondary tooltips"
+                            data-placement="top" data-original-title="Delete"><i class="fa fa-times"
+                                aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Add modal-->
+    <div class="modal fade" id="addLibroModal" tabindex="-1" role="dialog" aria-labelledby="addLibroModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addLibroModalLabel">Añadir Libro</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form #addForm="ngForm" (ngSubmit)="onAddLibro(addForm)">
+                        <div class="form-group">
+                            <label for="titulo">Titulo<span id="obligatorio"> *</span></label>
+                            <input type="text" ngModel name="titulo" class="form-control" id="titulo"
+                                placeholder="Titulo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edicion">Edicion<span id="obligatorio"> *</span></label>
+                            <input type="text" ngModel name="edicion" class="form-control" id="edicion"
+                                placeholder="Edicion" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="autor">Autor</label>
+                            <select ngModel name="autor" class="form-control form-select"
+                                aria-label="Default select example" id="autor">
+                                <option selected>Elige el autor</option>
+                                <option *ngFor="let autor of autores">{{autor.nombre}} {{autor.apellido1}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="categoria">Categoria<span id="obligatorio"> *</span></label>
+                            <select ngModel name="categoria" class="form-control form-select" id="categoria"
+                                placeholder="Categoria">
+                                <option selected>Elige la categoria</option>
+                                <option *ngFor="let categoria of categorias">{{categoria.descripcion}}</option>
+                            </select>
+                        </div>
+                        <div class="campoObligatorio">
+                            <p>Todos los campos marcados con <span id="obligatorio"> *</span> son obligatorios.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="add-libro-form" class="btn btn-md btn-secondary"
+                                data-dismiss="modal">Cerrar</button>
+                            <button [disabled]="addForm.invalid" type="submit" class="btn btn-warning">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--Update Libro-->
+    <div class="modal fade" id="updateLibroModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateLibroModalLabel">Editar Libro</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form #editForm="ngForm">
+                        <div class="form-group">
+                            <label for="titulo">Titulo<span id="obligatorio"> *</span></label>
+                            <input type="text" ngModel="{{editLibro?.titulo}}" name="titulo" class="form-control"
+                                id="titulo" aria-describedby="emailHelp" placeholder="Titulo">
+                        </div>
+                        <input type="hidden" ngModel="{{editLibro?.id}}" name="id" class="form-control" id="id"
+                            placeholder="id">
+                        <div class="form-group">
+                            <label for="text">Edicion<span id="obligatorio"> *</span></label>
+                            <input type="text" ngModel="{{editLibro?.edicion}}" name="edicion" class="form-control"
+                                id="edicion" placeholder="Edicion">
+                        </div>
+                        <div class="form-group">
+                            <label for="text">Autor</label>
+                            <select ngModel name="autor" class="form-control form-select" id="autor"
+                                placeholder="Autor">
+                                <option selected>Elige el autor</option>
+                                <option *ngFor="let autor of autores">{{autor.nombre}} {{autor.apellido1}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="categoria">Categoria<span id="obligatorio"> *</span></label>
+                            <select ngModel name="categoria" class="form-control" id="categoria" placeholder="Categoria"
+                                required>
+                                <option selected>{{editLibro?.categoria}}</option>
+                                <option *ngFor="let categoria of categorias">{{categoria?.descripcion}}</option>
+                            </select>
+                        </div>
+                        <div class="campoObligatorio">
+                            <p>Todos los campos marcados con <span id="obligatorio"> *</span> son obligatorios.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Cerrar</button>
+                            <button (click)="onUpdateLibro(editForm.value)" data-dismiss="modal"
+                                class="btn btn-warning">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Delete Libro-->
+    <div class="modal fade" id="deleteLibroModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModelLabel">Borrar Libro</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Seguro que quieres borrar el libro <strong>"{{deleteLibro?.titulo}}"</strong>?</p>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                        <button (click)="onDeleteLibro(deleteLibro.id)" class="btn btn-danger"
+                            data-dismiss="modal">Si</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

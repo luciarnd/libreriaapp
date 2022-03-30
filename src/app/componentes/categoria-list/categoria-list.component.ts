@@ -1,8 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Categoria } from '../models/categoria';
-import { CategoriaService } from '../services/categoria-service.service';
+import { Categoria } from '../../models/categoria';
+import { CategoriaService } from '../../services/categoria-service.service';
 
 @Component({
   selector: 'app-categoria-list',

@@ -1,6 +1,12 @@
 #main-container {
     padding: 10px;
 }
+
+.card-body {
+    padding: 20px 15px;
+
+}
+
 .card-body i{
     color: black;
     text-align: center;

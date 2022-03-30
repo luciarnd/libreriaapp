@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Autor } from '../models/autor';
-import { AutorService } from '../services/autor-service.service';
+import { Autor } from '../../models/autor';
+import { AutorService } from '../../services/autor-service.service';
 import { NgForm } from '@angular/forms';
 
 @Component({

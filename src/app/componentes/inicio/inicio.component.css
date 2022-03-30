@@ -1,0 +1,38 @@
+div {
+    display: flex;
+    width: auto;
+    height: 593px;
+    background-image: url(../../images/libreria.jpg);
+    background-color: rgba(0, 0, 0, 0.459);
+    background-blend-mode: darken;
+    background-repeat: no-repeat;
+    background-size: cover;
+    justify-content: center;
+}
+
+h1 {
+    font-size:70px;
+    margin: 30px;
+    font-family: Brandon Text;
+    color: rgb(255, 255, 255);
+    animation-name: movimiento;
+    animation-duration: 5s;
+    position: absolute;
+    top: 250px;
+}
+
+
+
+@font-face {
+    font-family: "Brandon Text"; src: url("//db.onlinewebfonts.com/t/38292514d8f80b45216b865422916b0b.eot"); src: url("//db.onlinewebfonts.com/t/38292514d8f80b45216b865422916b0b.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/38292514d8f80b45216b865422916b0b.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/38292514d8f80b45216b865422916b0b.woff") format("woff"), url("//db.onlinewebfonts.com/t/38292514d8f80b45216b865422916b0b.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/38292514d8f80b45216b865422916b0b.svg#Brandon Text") format("svg");
+}
+
+
+@keyframes movimiento {
+    from {
+        top: 400px;
+    }
+    to {
+        top: 250px;
+    }
+}

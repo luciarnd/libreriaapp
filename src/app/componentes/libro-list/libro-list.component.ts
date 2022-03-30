@@ -1,12 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Categoria } from '../models/categoria';
-import { Libro } from '../models/libro';
-import { LibroService} from '../services/libro-service.service';
-import { CategoriaService } from '../services/categoria-service.service';
-import { Autor } from '../models/autor';
-import { AutorService } from '../services/autor-service.service';
+import { Categoria } from '../../models/categoria';
+import { Libro } from '../../models/libro';
+import { LibroService} from '../../services/libro-service.service';
+import { CategoriaService } from '../../services/categoria-service.service';
+import { Autor } from '../../models/autor';
+import { AutorService } from '../../services/autor-service.service';
 
 @Component({
   selector: 'app-libro-list',
@@ -43,7 +43,6 @@ export class LibroListComponent implements OnInit {
       if(libro.autor.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
       libro.categoria.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
         res.push(libro);
-
       }
     }
     this.libros = res;

@@ -1,4 +1,13 @@
 
+@font-face {
+    font-family: "Brandon Text"; src: url("//db.onlinewebfonts.com/t/38292514d8f80b45216b865422916b0b.eot"); src: url("//db.onlinewebfonts.com/t/38292514d8f80b45216b865422916b0b.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/38292514d8f80b45216b865422916b0b.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/38292514d8f80b45216b865422916b0b.woff") format("woff"), url("//db.onlinewebfonts.com/t/38292514d8f80b45216b865422916b0b.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/38292514d8f80b45216b865422916b0b.svg#Brandon Text") format("svg");
+}
+
+nav {
+    position: sticky;
+    top: 0;
+    right: 0;
+}
 .nav-item a {
     color: white;
     text-decoration: none;
@@ -9,7 +18,7 @@
 
 .navbar-brand {
     font-size: 25px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: Brandon Text;
 
 }
 
