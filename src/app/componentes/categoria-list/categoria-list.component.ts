@@ -13,6 +13,7 @@ export class CategoriaListComponent implements OnInit {
   categorias: Categoria[];
   updateCategoria: Categoria;
   deleteCategoria: Categoria;
+  page: number = 1;
   
   constructor(private categoriaService: CategoriaService) { }
 

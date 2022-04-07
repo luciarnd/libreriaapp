@@ -1,107 +1,167 @@
-<div id="main-container">
+<div id="main-container" class="bg-neutral-lighter">
+    <div>
+        <h1>AA</h1>
+    </div>
     <div id="titulo">
         <h2>Categorias</h2>
     </div>
     <div id="addCategoria">
-        <a>Añadir Categoria<span class="sr-only">(current)</span></a>
-        <a (click)="onOpenModal(null!, 'add')" class="btn btn-outline-warning tooltips"><i class="fa fa-plus fa-xs"></i></a>
+        <desy-button (click)="onOpenModal(null!, 'add')" [classes]="'c-button--primary ml-sm c-button--sm text-semibold'" >
+            Añadir categoría <i class="fa fa-plus fa-xs"></i>
+        </desy-button>
     </div>
     <div id="clear"></div>
-    <div class="row">
-        <div *ngFor="let categoria of categorias" class="col-md-6 col-xl-3">
-            <div class="card m-b-30" > 
-                <div class="card-body row">
-                    <div class="col-6 card-title mb-0">
-                        <h5>{{categoria?.descripcion}}</h5>
+    <div class="flex flex-wrap">
+        <desy-table *ngFor="let categoria of categorias | paginate: {itemsPerPage: 12, currentPage: page}"
+            [classes]="' w-72 my-sm mx-xs border-r border-l border-neutral-base bg-white'" id="table">
+            <desy-table-row>
+                <desy-table-cell [colspan]="2" [classes]="''">
+                    <h5><strong>{{categoria?.descripcion}}</strong></h5>
+                    <br>
+                    <div class="flex justify-end">
+                        <desy-button (click)="onOpenModal(categoria, 'edit')"
+                            [classes]="'c-button--primary mr-sm c-button--sm'" data-placement="top"
+                            data-original-title="Edit" id="editbutton">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </desy-button>
+                        <desy-button (click)="onOpenModal(categoria, 'delete')"
+                            [classes]="'c-button--alert  mr-sm c-button--sm'" data-placement="top"
+                            data-original-title="Delete" id="deletebutton">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </desy-button>
                     </div>
-                </div>
-                <div class="card-body">
-                    <div class= "float-right">
-                        <a (click)="onOpenModal(categoria, 'edit')" class="btn btn-outline-warning tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                        <a (click)="onOpenModal(categoria, 'delete')" class="btn btn-outline-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"  aria-hidden="true"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
+                </desy-table-cell>
+            </desy-table-row>
+        </desy-table>
     </div>
+    <pagination-controls (pageChange)="page = $event" nextLabel="Siguiente" previousLabel="Anterior" class="paginator"></pagination-controls>
 
-<!--Add modal-->
-<div class="modal fade" id="addCategoriaModal" tabindex="-1" role="dialog" aria-labelledby="addCategoriaModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-       <div class="modal-content">
-          <div class="modal-header">
-             <h5 class="modal-title" id="addCategoriaModalLabel">Añadir Categoria</h5>
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-             <span aria-hidden="true">&times;</span>
-             </button>
-          </div>
-          <div class="modal-body">
-             <form #addForm="ngForm" (ngSubmit)="onAddCategoria(addForm)">
-             <div class="form-group">
-                <label for="descripcion">Descripcion<span id="obligatorio"> *</span></label>
-                <input type="text" ngModel name="descripcion" class="form-control" id="descripcion" placeholder="Descripcion" required>
-             </div>
-             <div class="campoObligatorio">
-                <p>Todos los campos marcados con <span id="obligatorio"> *</span> son obligatorios.</p>
+    <!--Add modal-->
+    <desy-modal [id]="'addCategoriaModal'" [tabindex]="'-1'" [role]="'dialog'"
+        [ariaLabelledBy]="'addCategoriaModalLabel'" [ariaHidden]="'true'"
+        [classes]="'modal border border-neutral-base rounded bg-white max-w-lg'">
+        <desy-title>
+            Añadir categoria
+        </desy-title>
+        <desy-description>
+            <div class="flex justify-center p-base">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 140" width="1em" height="1em"
+                    class="block w-16 h-16 text-primary-light" focusable="false" aria-hidden="true" role="presentation">
+                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="1.5">
+                        <path
+                            d="M16.094 91.17a9.707 9.707 0 01-5.145-17.938L118.767 5.833a9.7 9.7 0 0114.676 10.034l-21 111.842a9.707 9.707 0 01-17.301 4.031L64.75 91.17z"
+                            stroke-width="8.749995" />
+                        <path
+                            d="M64.75 91.17H50.167v30.163a9.7 9.7 0 0015.166 8.015l18.539-12.635zM64.744 91.17l64.633-85.11"
+                            stroke-width="8.749995" />
+                    </g>
+                </svg>
             </div>
-             <div class="modal-footer">
-                <button type="button" id="add-categoria-form" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button [disabled]="addForm.invalid" type="submit" class="btn btn-warning" >Guardar</button>
-             </div>
-             </form>
-          </div>
-       </div>
-    </div>
- </div>
-
-
-<!--Update Categoria-->
-<div class="modal fade" id="updateCategoriaModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="updateCategoriaModalLabel">Editar Categoria</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        <div class="modal-body">
-            <form #editForm="ngForm">
-                <div class="form-group">
-                    <label for="descripcion">Descripcion<span id="obligatorio"> *</span></label>
-                    <input type="text" ngModel="{{updateCategoria?.descripcion}}" name="descripcion" class="form-control" id="descripcion" aria-describedby="emailHelp" placeholder="Descripcion" required>
-                </div>
-                <input type="hidden" ngModel="{{updateCategoria?.id}}" name="id" class="form-control" id="id" placeholder="id">
+            <form #addForm="ngForm" class="my-sm">
+                <desy-label [for]="'descripcion'" [classes]="'text-left'">
+                    Descripcion<span id="obligatorio"> *</span>
+                </desy-label>
+                <desy-input ngModel name="descripcion" [type]="'text'"
+                    [classes]="'block border-primary rounded placeholder-neutral-dark w-full mb-sm'" id="descripcion"
+                    placeholder="Descripcion" required></desy-input>
                 <div class="campoObligatorio">
-                    <p>Todos los campos marcados con <span id="obligatorio"> *</span> son obligatorios.</p>
+                    <p class="text-left">Todos los campos marcados con <span id="obligatorio"> *</span> son
+                        obligatorios.
+                    </p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Cerrar</button>
-                    <button (click)="onUpdateCategoria(editForm.value)" data-dismiss="modal" class="btn btn-warning">Guardar</button>
+                    <desy-button type="button" id="" [classes]="'c-button--alert'" data-dismiss="modal"
+                        [html]="'Cerrar'">
+                    </desy-button>
+                    <desy-button (click)="onAddCategoria(addForm)" data-dismiss="modal" [id]="'add-autor-form'"
+                        [classes]="'c-button--primary c-button--md'" [html]="'Guardar'">
+                    </desy-button>
                 </div>
             </form>
-        </div>
-    </div>
-    </div>
-</div>
+        </desy-description>
+    </desy-modal>
 
-<!--Delete Categoria-->
-<div class="modal fade" id="deleteCategoriaModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="deleteModelLabel">Borrar Libro</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <p>¿Seguro que quieres borrar la categoria <strong>"{{deleteCategoria?.descripcion}}"</strong>?</p>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                <button (click)="onDeleteCategoria(deleteCategoria.id)" class="btn btn-danger" data-dismiss="modal">Si</button>
+
+    <!--Update Categoria-->
+    <desy-modal [id]="'updateCategoriaModal'" [tabindex]="'-1'" [role]="'dialog'"
+        [ariaLabelledBy]="'editCategoriaModalLabel'" [ariaHidden]="'true'"
+        [classes]="'modal border border-neutral-base rounded bg-white'">
+        <desy-title>
+            Editar categoria
+        </desy-title>
+        <desy-description>
+            <div class="flex justify-center p-base">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 140" width="1em" height="1em"
+                    class="block w-16 h-16 text-primary-light" focusable="false" aria-hidden="true" role="presentation">
+                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="1.5">
+                        <path d="M73.89 82.46l-21.652 3.098 3.091-21.66 55.685-55.685a13.125 13.125 0 0118.562 18.562z"
+                            stroke-width="8.749995" />
+                        <path
+                            d="M111.545 83.125v43.75a8.75 8.75 0 01-8.75 8.75h-87.5a8.75 8.75 0 01-8.75-8.75v-87.5a8.75 8.75 0 018.75-8.75h43.75"
+                            stroke-width="8.749995" />
+                    </g>
+                </svg>
             </div>
-        </div>
-    </div>
-    </div>
+            <form #editForm="ngForm">
+                <desy-label [for]="'Descripcion'" [classes]="'text-left'">Descripción<span id="obligatorio"> *</span>
+                </desy-label>
+                <desy-input [type]="'text'" ngModel="{{updateCategoria?.descripcion}}" name="descripcion"
+                    [classes]="'block border-primary rounded placeholder-neutral-dark w-full mb-sm'"
+                    [id]="'descripcion'" aria-describedby="emailHelp" placeholder="Descripción">
+                </desy-input>
+                <desy-input [type]="'hidden'" ngModel="{{updateCategoria?.id}}" name="id" id="id" placeholder="id">
+                </desy-input>
+                <div class="campoObligatorio">
+                    <p class="text-left">Todos los campos marcados con <span id="obligatorio"> *</span> son
+                        obligatorios.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <desy-button data-dismiss="modal" [classes]="'c-button--alert'" data-dismiss="modal"
+                        [html]="'Cerrar'"></desy-button>
+                    <desy-button (click)="onUpdateCategoria(editForm.value)" data-dismiss="modal"
+                        [classes]="'c-button--primary'" [html]="'Guardar'"></desy-button>
+                </div>
+            </form>
+        </desy-description>
+    </desy-modal>
+
+    <!--Delete Categoria-->
+    <desy-modal [id]="'deleteCategoriaModal'" [tabindex]="'-1'" [role]="'dialog'"
+        [ariaLabelledBy]="'deleteCategoriaModalLabel'" [ariaHidden]="'true'"
+        [classes]="'modal border border-neutral-base rounded bg-white'">
+        <desy-title>
+            Borrar categoria
+        </desy-title>
+        <desy-description>
+            <div class="flex justify-center p-base">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 140" width="1em" height="1em"
+                    class="block w-16 h-16 text-alert-light" focusable="false" aria-hidden="true" role="presentation">
+                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="1.5">
+                        <path
+                            d="M100.625 122.5h-61.25a8.75 8.75 0 01-8.75-8.75V35h78.75v78.75a8.75 8.75 0 01-8.75 8.75zM56.875 96.25v-35M83.125 96.25v-35M13.125 35h113.75M83.125 17.5h-26.25a8.75 8.75 0 00-8.75 8.75V35h43.75v-8.75a8.75 8.75 0 00-8.75-8.75z"
+                            stroke-width="8.749995" />
+                    </g>
+                </svg>
+            </div>
+            <p class="c-p my-base text-center pr-lg">
+                Esta acción no se puede deshacer. ¿Estás seguro que quieres borrar la categoria
+                <strong>"{{deleteCategoria?.descripcion}}"</strong>?
+            </p>
+            <div class="flex flex-wrap gap-sm w-full justify-between">
+                <div class="mt-sm">
+                    <desy-button data-dismiss="modal" [html]="'Cancelar'"><span class="sr-only">y cerrar la ventana
+                            modal</span>
+                    </desy-button>
+                </div>
+                <div class="mt-sm">
+                    <desy-button (click)="onDeleteCategoria(deleteCategoria.id)" data-dismiss="modal"
+                        [classes]="'c-button--alert'" [html]="'Sí, borrar categoria'"></desy-button>
+                </div>
+            </div>
+        </desy-description>
+    </desy-modal>
 </div>

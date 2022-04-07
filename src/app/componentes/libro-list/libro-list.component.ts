@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Categoria } from '../../models/categoria';
 import { Libro } from '../../models/libro';
-import { LibroService} from '../../services/libro-service.service';
+import { LibroService } from '../../services/libro-service.service';
 import { CategoriaService } from '../../services/categoria-service.service';
 import { Autor } from '../../models/autor';
 import { AutorService } from '../../services/autor-service.service';
@@ -18,9 +18,15 @@ export class LibroListComponent implements OnInit {
   libros: Libro[];
   categorias: Categoria[]
   autores: Autor[];
+  autors: any[] = [];
+  categoris: any[] = [];
   editLibro: Libro;
   deleteLibro: Libro;
-  constructor(private libroService: LibroService, private categoriaService: CategoriaService, private autorService: AutorService) { }
+  page: number = 1;
+  constructor(private libroService: LibroService, private categoriaService: CategoriaService, private autorService: AutorService) {
+    this.getAutores();
+    this.getCategorias();
+   }
 
   ngOnInit(): void {
     this.libroService.findAll().subscribe(data => {
@@ -36,12 +42,13 @@ export class LibroListComponent implements OnInit {
     });
   }
 
+
   public search(key: string): void {
     console.log(key);
     const res: Libro[] = [];
     for (const libro of this.libros) {
-      if(libro.autor.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
-      libro.categoria.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
+      if (libro.autor.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
+        libro.categoria.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
         res.push(libro);
       }
     }
@@ -50,12 +57,12 @@ export class LibroListComponent implements OnInit {
       this.libroService.findAll();
       this.ngOnInit();
     }
-  
+
   }
-  
+
 
   public onUpdateLibro(libro: Libro): void {
-  
+
     this.libroService.updateLibro(libro).subscribe(
       (response: Libro) => {
         console.log(response);
@@ -63,8 +70,8 @@ export class LibroListComponent implements OnInit {
         this.ngOnInit();
       },
       (error: HttpErrorResponse) => {
-      alert(error.message);
-    }
+        alert(error.message);
+      }
     );
   }
 
@@ -76,14 +83,14 @@ export class LibroListComponent implements OnInit {
         this.ngOnInit();
       },
       (error: HttpErrorResponse) => {
-      alert(error.message);
-    }
+        alert(error.message);
+      }
     );
   }
 
   public onAddLibro(addForm: NgForm): void {
     document.getElementById('add-libro-form')?.click();
-  
+
     this.libroService.addLibro(addForm.value).subscribe(
       (response: Libro) => {
         console.log(response);
@@ -92,9 +99,9 @@ export class LibroListComponent implements OnInit {
         this.ngOnInit();
       },
       (error: HttpErrorResponse) => {
-      alert(error.message);
-      addForm.reset();
-    }
+        alert(error.message);
+        addForm.reset();
+      }
     );
   }
 
@@ -103,7 +110,7 @@ export class LibroListComponent implements OnInit {
     const button = document.createElement('button');
     button.type = 'button';
     button.style.display = 'none';
-    button.setAttribute('data-toggle', 'modal'); 
+    button.setAttribute('data-toggle', 'modal');
 
     if (mode === 'add') {
       button.setAttribute('data-target', '#addLibroModal');
@@ -122,17 +129,34 @@ export class LibroListComponent implements OnInit {
     button.click();
 
   }
-/*
-  getAutores():void {
-    this.autorService.findAll().subscribe(autors => {
-      autors.forEach(autor => {
-        this.autores.push(
+
+  getAutores(): void {
+    this.autorService.findAll().subscribe(autores => {
+      autores.forEach(autor => {
+        this.autors.push(
           {
-            text: autor.nombre,
-            value: autor.dni
+            text: autor.nombre + " " + autor.apellido1,
+            value:  autor.nombre + " " + autor.apellido1
           }
         )
-        });
-    });
-  }*/
+      },
+        this.autores = autores
+      )
+    }
+    )
+  }
+
+  getCategorias(): void {
+    this.categoriaService.findAll().subscribe(categorias => {
+      categorias.forEach(categoria => {
+        this.categoris.push (
+          {
+            text: categoria.descripcion,
+            value: categoria.descripcion
+          }
+        )},
+        this.categorias = categorias
+        )}
+      )
+  }
 }

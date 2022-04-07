@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, ExtraOptions } from '@angular/router';
 import { AutorListComponent } from './componentes/autor-list/autor-list.component';
 import { CategoriaListComponent } from './componentes/categoria-list/categoria-list.component';
 import { InicioComponent } from './componentes/inicio/inicio.component';
@@ -11,6 +11,12 @@ const routes: Routes = [
   {path: 'categoria/all', component: CategoriaListComponent},
   {path: 'libro/all', component: LibroListComponent}
 ];
+
+const routerOptions: ExtraOptions = {
+  useHash: false,
+  anchorScrolling: 'enabled',
+  // ...any other options you'd like to use
+};
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -1,177 +1,266 @@
-<div id="main-container">
+<div id="main-container" class="bg-neutral-lighter">
+    <div>
+        <h1>AA</h1>
+    </div>
     <div id="cabecera">
         <div id="ntitulo">
             <h2>Libros</h2>
         </div>
-        <div id="buscar">
-            <form class="form-inline my-2 my-lg-0">
-                <input type="search" (ngModelChange)="search(key.value)" #key="ngModel" ngModel name="key"
-                    id="searchName" class="form-control mr-sm-2" placeholder="Buscar" required>
-            </form>
+        <div class="relative flex items-center" id="searchbar">
+            <desy-search-bar (ngModelChange)="search(key.value)" #key="ngModel" ngModel name="key"
+                [placeholder]="'Buscar...'"
+                [classes]="'block mt-0 pr-12 border-black rounded placeholder-neutral-dark'"></desy-search-bar>
         </div>
         <div id="addlibro">
-            <a>Añadir Libro<span class="sr-only">(current)</span></a>
-            <a (click)="onOpenModal(null!, 'add')" class="btn btn-outline-warning tooltips"><i
-                    class="fa fa-plus fa-xs"></i></a>
+            <desy-button (click)="onOpenModal(null!, 'add')"
+                [classes]="'c-button--primary ml-sm c-button--sm text-semibold'">
+                Añadir libro<i class="fa fa-plus fa-xs"></i>
+            </desy-button>
         </div>
     </div>
 
-    <div class="row">
-        <div *ngFor="let libro of libros" class="col-md-6 col-xl-3">
-            <div class="card m-b-30">
-                <div class="card-body row">
-                    <div class="col-6 card-title mb-0">
-                        <h5>{{libro?.titulo}}</h5>
-                    </div>
-                </div>
-                <ul class="list-group list-group">
-                    <li class="list-group-item"><i class="fa fa-bookmark"></i>Edición: {{libro?.edicion}}</li>
-                    <li class="list-group-item"><i class="fa fa-user"></i>{{libro?.autor}}</li>
-                    <li class="list-group-item"><i class="fa fa-file"></i>{{libro?.categoria}}</li>
-                </ul>
-                <div class="card-body">
-                    <div class="float-right">
-                        <a (click)="onOpenModal(libro, 'edit')" class="btn btn-outline-warning tooltips"
-                            data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"
-                                aria-hidden="true"></i></a>
-                        <a (click)="onOpenModal(libro, 'delete')" class="btn btn-outline-secondary tooltips"
-                            data-placement="top" data-original-title="Delete"><i class="fa fa-times"
-                                aria-hidden="true"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <desy-table [classes]="'w-full mb-base'">
+        <desy-table-header>
+            <desy-table-cell [classes]="'font-semibold text-base text-center border-r border-l text-white bg-black'">
+                Título
+            </desy-table-cell>
+            <desy-table-cell [classes]="'font-semibold text-base text-center border-r border-l text-white bg-black'">
+                Edición
+            </desy-table-cell>
+            <desy-table-cell [classes]="'font-semibold text-base text-center border-r border-l text-white bg-black'">
+                Autor
+            </desy-table-cell>
+            <desy-table-cell [classes]="'font-semibold text-base text-center border-r border-l text-white bg-black'">
+                Categoría
+            </desy-table-cell >
+            <desy-table-cell [classes]="'font-semibold text-base text-center border-r border-l text-white bg-black'">
+                Editar
+            </desy-table-cell>
+            <desy-table-cell [classes]="'font-semibold text-base text-center border-r border-l text-white bg-black'">
+                Borrar
+            </desy-table-cell>
+        </desy-table-header>
+        <desy-table-row *ngFor="let libro of libros | paginate: {itemsPerPage: 10, currentPage: page}">
+            <desy-table-cell [classes]="'text-center border-r border-l bg-white'">
+                {{libro?.titulo}}
+            </desy-table-cell>
+            <desy-table-cell [classes]="'text-center border-r border-l bg-white'">
+                {{libro?.edicion}}
+            </desy-table-cell>
+            <desy-table-cell [classes]="'text-center border-r border-l bg-white'">
+                {{libro?.autor}}
+            </desy-table-cell>
+            <desy-table-cell [classes]="'text-center border-r border-l bg-white'">
+                {{libro?.categoria}}
+            </desy-table-cell>
+            <desy-table-cell [classes]="'text-center border-r border-l bg-white'">
+                <desy-button (click)="onOpenModal(libro, 'edit')" [classes]="'c-button--primary c-button--sm'"
+                    data-placement="top" data-original-title="Edit" id="editbutton">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                </desy-button>
+            </desy-table-cell>
+            <desy-table-cell [classes]="'text-center border-r border-l bg-white'">
+                <desy-button (click)="onOpenModal(libro, 'delete')" [classes]="'c-button--alert c-button--sm'"
+                    data-placement="top" data-original-title="Delete" id="deletebutton">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </desy-button>
+            </desy-table-cell>
+        </desy-table-row>
+    </desy-table>
+
+    <!--<desy-table *ngFor="let libro of libros | paginate: {itemsPerPage: 12, currentPage: page}" [classes]="' w-72 my-sm mx-sm border-r border-l border-neutral-base bg-white'" id="table">
+            <desy-table-row>
+                <desy-table-cell [colspan]="2">
+                    <h5><strong>{{libro?.titulo}}</strong></h5>
+                </desy-table-cell>
+            </desy-table-row>
+            <desy-table-row>
+                <desy-table-cell [colspan]="2">
+                    <i class="fa fa-bookmark" id="table-icon"></i> <strong>Edición:</strong> {{libro?.edicion}}
+                </desy-table-cell>
+            </desy-table-row>
+            <desy-table-row>
+                <desy-table-cell [colspan]="2">
+                    <i class="fa fa-user" id="table-icon"></i> {{libro?.autor}}
+                </desy-table-cell>
+            </desy-table-row>
+            <desy-table-row>
+                <desy-table-cell [colspan]="2">
+                    <i class="fa fa-file" id="table-icon"></i> {{libro?.categoria}}
+                </desy-table-cell>
+            </desy-table-row>
+            <desy-table-row>
+                <desy-table-cell [classes]="'flex justify-end'">
+                    <desy-button (click)="onOpenModal(libro, 'edit')" [classes]="'c-button--primary mr-sm c-button--sm'"
+                        data-placement="top" data-original-title="Edit" id="editbutton">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </desy-button>
+                    <desy-button (click)="onOpenModal(libro, 'delete')"
+                        [classes]="'c-button--alert  mr-sm c-button--sm'" data-placement="top"
+                        data-original-title="Delete" id="deletebutton">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </desy-button>
+                </desy-table-cell>
+            </desy-table-row>
+        </desy-table>-->
+    <pagination-controls (pageChange)="page = $event" nextLabel="Siguiente" previousLabel="Anterior" class="paginator">
+    </pagination-controls>
 
     <!--Add modal-->
-    <div class="modal fade" id="addLibroModal" tabindex="-1" role="dialog" aria-labelledby="addLibroModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addLibroModalLabel">Añadir Libro</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form #addForm="ngForm" (ngSubmit)="onAddLibro(addForm)">
-                        <div class="form-group">
-                            <label for="titulo">Titulo<span id="obligatorio"> *</span></label>
-                            <input type="text" ngModel name="titulo" class="form-control" id="titulo"
-                                placeholder="Titulo" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="edicion">Edicion<span id="obligatorio"> *</span></label>
-                            <input type="text" ngModel name="edicion" class="form-control" id="edicion"
-                                placeholder="Edicion" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="autor">Autor</label>
-                            <select ngModel name="autor" class="form-control form-select"
-                                aria-label="Default select example" id="autor">
-                                <option selected>Elige el autor</option>
-                                <option *ngFor="let autor of autores">{{autor.nombre}} {{autor.apellido1}}</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="categoria">Categoria<span id="obligatorio"> *</span></label>
-                            <select ngModel name="categoria" class="form-control form-select" id="categoria"
-                                placeholder="Categoria">
-                                <option selected>Elige la categoria</option>
-                                <option *ngFor="let categoria of categorias">{{categoria.descripcion}}</option>
-                            </select>
-                        </div>
-                        <div class="campoObligatorio">
-                            <p>Todos los campos marcados con <span id="obligatorio"> *</span> son obligatorios.</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" id="add-libro-form" class="btn btn-md btn-secondary"
-                                data-dismiss="modal">Cerrar</button>
-                            <button [disabled]="addForm.invalid" type="submit" class="btn btn-warning">Guardar</button>
-                        </div>
-                    </form>
-                </div>
+    <desy-modal [id]="'addLibroModal'" [tabindex]="'-1'" [role]="'dialog'" [ariaLabelledBy]="'addLibroModalLabel'"
+        [ariaHidden]="'true'" [classes]="'modal border border-neutral-base rounded bg-white max-w-lg'">
+        <desy-title>
+            Añadir libro
+        </desy-title>
+        <desy-description>
+            <div class="flex justify-center p-base">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 140" width="1em" height="1em"
+                    class="block w-16 h-16 text-primary-light" focusable="false" aria-hidden="true" role="presentation">
+                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="1.5">
+                        <path
+                            d="M16.094 91.17a9.707 9.707 0 01-5.145-17.938L118.767 5.833a9.7 9.7 0 0114.676 10.034l-21 111.842a9.707 9.707 0 01-17.301 4.031L64.75 91.17z"
+                            stroke-width="8.749995" />
+                        <path
+                            d="M64.75 91.17H50.167v30.163a9.7 9.7 0 0015.166 8.015l18.539-12.635zM64.744 91.17l64.633-85.11"
+                            stroke-width="8.749995" />
+                    </g>
+                </svg>
             </div>
-        </div>
-    </div>
-
+            <form #addForm="ngForm" class="my-sm">
+                <desy-label [for]="'titulo'" [classes]="'text-left'">
+                    Titulo<span id="obligatorio"> *</span>
+                </desy-label>
+                <desy-input ngModel name="titulo" [type]="'text'"
+                    [classes]="'block border-primary rounded placeholder-neutral-dark w-full mb-sm'" id="titulo"
+                    placeholder="Titulo" required></desy-input>
+                <desy-label [for]="'edicion'" [classes]="'text-left'">
+                    Edición<span id="obligatorio"> *</span>
+                </desy-label>
+                <desy-input ngModel name="edicion"
+                    [classes]="'block border-primary rounded placeholder-neutral-dark w-full mb-sm'" id="edicion"
+                    [type]="'text'" placeholder="Edición" required></desy-input>
+                <desy-label [for]="'autor'" [classes]="'text-left'">
+                    Autor
+                </desy-label>
+                <desy-select ngModel name="autor" [items]="autors"
+                    [classes]="'block border-primary rounded placeholder-neutral-dark w-full mb-sm'" id="autor"
+                    aria-selected="true">
+                </desy-select>
+                <desy-label [for]="'categoria'" [classes]="'text-left'">
+                    Categoria<span id="obligatorio"> *</span>
+                </desy-label>
+                <desy-select ngModel name="categoria" [items]="categoris"
+                    [classes]="'block border-primary rounded placeholder-neutral-dark w-full mb-sm'" id="categoria">
+                </desy-select>
+                <div class="campoObligatorio">
+                    <p class="text-left">Todos los campos marcados con <span id="obligatorio"> *</span> son
+                        obligatorios.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <desy-button type="button" id="" [classes]="'c-button--alert'" data-dismiss="modal"
+                        [html]="'Cerrar'">
+                    </desy-button>
+                    <desy-button (click)="onAddLibro(addForm)" data-dismiss="modal" [id]="'add-autor-form'"
+                        [classes]="'c-button--primary c-button--md'" [html]="'Guardar'">
+                    </desy-button>
+                </div>
+            </form>
+        </desy-description>
+    </desy-modal>
 
     <!--Update Libro-->
-    <div class="modal fade" id="updateLibroModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="updateLibroModalLabel">Editar Libro</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form #editForm="ngForm">
-                        <div class="form-group">
-                            <label for="titulo">Titulo<span id="obligatorio"> *</span></label>
-                            <input type="text" ngModel="{{editLibro?.titulo}}" name="titulo" class="form-control"
-                                id="titulo" aria-describedby="emailHelp" placeholder="Titulo">
-                        </div>
-                        <input type="hidden" ngModel="{{editLibro?.id}}" name="id" class="form-control" id="id"
-                            placeholder="id">
-                        <div class="form-group">
-                            <label for="text">Edicion<span id="obligatorio"> *</span></label>
-                            <input type="text" ngModel="{{editLibro?.edicion}}" name="edicion" class="form-control"
-                                id="edicion" placeholder="Edicion">
-                        </div>
-                        <div class="form-group">
-                            <label for="text">Autor</label>
-                            <select ngModel name="autor" class="form-control form-select" id="autor"
-                                placeholder="Autor">
-                                <option selected>Elige el autor</option>
-                                <option *ngFor="let autor of autores">{{autor.nombre}} {{autor.apellido1}}</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="categoria">Categoria<span id="obligatorio"> *</span></label>
-                            <select ngModel name="categoria" class="form-control" id="categoria" placeholder="Categoria"
-                                required>
-                                <option selected>{{editLibro?.categoria}}</option>
-                                <option *ngFor="let categoria of categorias">{{categoria?.descripcion}}</option>
-                            </select>
-                        </div>
-                        <div class="campoObligatorio">
-                            <p>Todos los campos marcados con <span id="obligatorio"> *</span> son obligatorios.</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Cerrar</button>
-                            <button (click)="onUpdateLibro(editForm.value)" data-dismiss="modal"
-                                class="btn btn-warning">Guardar</button>
-                        </div>
-                    </form>
-                </div>
+    <desy-modal [id]="'updateLibroModal'" [tabindex]="'-1'" [role]="'dialog'" [ariaLabelledBy]="'editLibroModalLabel'"
+        [ariaHidden]="'true'" [classes]="'modal border border-neutral-base rounded bg-white'">
+        <desy-title>
+            Editar libro
+        </desy-title>
+        <desy-description>
+            <div class="flex justify-center p-base">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 140" width="1em" height="1em"
+                    class="block w-16 h-16 text-primary-light" focusable="false" aria-hidden="true" role="presentation">
+                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="1.5">
+                        <path d="M73.89 82.46l-21.652 3.098 3.091-21.66 55.685-55.685a13.125 13.125 0 0118.562 18.562z"
+                            stroke-width="8.749995" />
+                        <path
+                            d="M111.545 83.125v43.75a8.75 8.75 0 01-8.75 8.75h-87.5a8.75 8.75 0 01-8.75-8.75v-87.5a8.75 8.75 0 018.75-8.75h43.75"
+                            stroke-width="8.749995" />
+                    </g>
+                </svg>
             </div>
-        </div>
-    </div>
+            <form #editForm="ngForm">
+                <desy-label [for]="'titulo'" [classes]="'text-left'">Titulo<span id="obligatorio"> *</span></desy-label>
+                <desy-input [type]="'text'" ngModel="{{editLibro?.titulo}}" name="titulo"
+                    [classes]="'block border-primary rounded placeholder-neutral-dark w-full mb-sm'" [id]="'titulo'"
+                    aria-describedby="emailHelp" placeholder="Titulo">
+                </desy-input>
+                <desy-input [type]="'hidden'" ngModel="{{editLibro?.id}}" name="id" id="id" placeholder="id">
+                </desy-input>
+                <desy-label [for]="'edicion'" [classes]="'text-left'">Edición<span id="obligatorio"> *</span>
+                </desy-label>
+                <desy-input [type]="'text'" ngModel="{{editLibro?.edicion}}" name="edicion"
+                    [classes]="'block border-primary rounded placeholder-neutral-dark w-full mb-sm'" [id]="'edicion'"
+                    placeholder="Edición">
+                </desy-input>
+                <desy-label [for]="'autor'" [classes]="'text-left'">Autor</desy-label>
+                <desy-select ngModel="{{editLibro?.autor}}" name="autor" [items]="autors"
+                    [classes]="'block border-primary rounded placeholder-neutral-dark w-full mb-sm'" [id]="'autor'">
+                </desy-select>
+                <desy-label [for]="'categoria'" [classes]="'text-left'">Categoria</desy-label>
+                <desy-select ngModel="{{editLibro?.categoria}}" name="categoria" [items]="categoris"
+                    [classes]="'block border-primary rounded placeholder-neutral-dark w-full mb-sm'" [id]="'categoria'"
+                    placeholder="Categoria"></desy-select>
+                <div class="campoObligatorio">
+                    <p class="text-left">Todos los campos marcados con <span id="obligatorio"> *</span> son
+                        obligatorios.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <desy-button data-dismiss="modal" [classes]="'c-button--alert'" data-dismiss="modal"
+                        [html]="'Cerrar'">
+                    </desy-button>
+                    <desy-button (click)="onUpdateLibro(editForm.value)" data-dismiss="modal"
+                        [classes]="'c-button--primary'" [html]="'Guardar'"></desy-button>
+                </div>
+            </form>
+        </desy-description>
+    </desy-modal>
 
     <!--Delete Libro-->
-    <div class="modal fade" id="deleteLibroModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="deleteModelLabel">Borrar Libro</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+    <desy-modal [id]="'deleteLibroModal'" [tabindex]="'-1'" [role]="'dialog'" [ariaLabelledBy]="'deleteLibroModalLabel'"
+        [ariaHidden]="'true'" [classes]="'modal border border-neutral-base rounded bg-white'">
+        <desy-title>
+            Borrar libro
+        </desy-title>
+        <desy-description>
+            <div class="flex justify-center p-base">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 140" width="1em" height="1em"
+                    class="block w-16 h-16 text-alert-light" focusable="false" aria-hidden="true" role="presentation">
+                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="1.5">
+                        <path
+                            d="M100.625 122.5h-61.25a8.75 8.75 0 01-8.75-8.75V35h78.75v78.75a8.75 8.75 0 01-8.75 8.75zM56.875 96.25v-35M83.125 96.25v-35M13.125 35h113.75M83.125 17.5h-26.25a8.75 8.75 0 00-8.75 8.75V35h43.75v-8.75a8.75 8.75 0 00-8.75-8.75z"
+                            stroke-width="8.749995" />
+                    </g>
+                </svg>
+            </div>
+            <p class="c-p my-base text-center pr-lg">
+                Esta acción no se puede deshacer. ¿Estás seguro que quieres borrar el libro
+                <strong>"{{deleteLibro?.titulo}}"</strong>?
+            </p>
+            <div class="flex flex-wrap gap-sm w-full justify-between">
+                <div class="mt-sm">
+                    <desy-button data-dismiss="modal" [html]="'Cancelar'"><span class="sr-only">y cerrar la ventana
+                            modal</span>
+                    </desy-button>
                 </div>
-                <div class="modal-body">
-                    <p>¿Seguro que quieres borrar el libro <strong>"{{deleteLibro?.titulo}}"</strong>?</p>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                        <button (click)="onDeleteLibro(deleteLibro.id)" class="btn btn-danger"
-                            data-dismiss="modal">Si</button>
-                    </div>
+                <div class="mt-sm">
+                    <desy-button (click)="onDeleteLibro(deleteLibro.id)" data-dismiss="modal"
+                        [classes]="'c-button--alert'" [html]="'Sí, borrar libro'"></desy-button>
                 </div>
             </div>
-        </div>
-    </div>
+        </desy-description>
+    </desy-modal>
 </div>

@@ -5,32 +5,17 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <title>Document</title>
 </head>
-
 <body>
-  <div id="main-container">
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
-      <a class="navbar-brand" style="color:rgb(255, 238, 0);">Librería</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
-        aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarColor02">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a routerLink="" class="btn btn-dark" role="button">Inicio</a>
-            <a routerLink="/autor/all" class="btn btn-dark" role="button">Autores</a>
-            <a routerLink="/libro/all" class="btn btn-dark" role="button">Libros</a>
-            <a routerLink="/categoria/all" class="btn btn-dark" role="button">Categorias</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-    <router-outlet></router-outlet>
-  </div>
+  <desy-header [classes]="'fixed-top'">
+      <desy-header-navigation [classes]="'text-white text-center font-semibold text-xs mt-base'" class="items">
+        <desy-header-navigation-item [routerLink]="'/'">Inicio</desy-header-navigation-item>
+        <desy-header-navigation-item [routerLink]="'/autor/all'">Autores</desy-header-navigation-item>
+        <desy-header-navigation-item [routerLink]="'/libro/all'">Libros</desy-header-navigation-item>
+        <desy-header-navigation-item [routerLink]="'/categoria/all'">Categorías</desy-header-navigation-item>
+      </desy-header-navigation>
+  </desy-header>
+  <router-outlet></router-outlet>
 </body>
 
 </html>

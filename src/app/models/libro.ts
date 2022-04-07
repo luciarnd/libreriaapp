@@ -4,7 +4,7 @@ export class Libro {
     id: number;
     titulo: string;
     edicion: number;
-    autor: String;
-    categoria: String;
+    autor: string;
+    categoria: string;
     
 }

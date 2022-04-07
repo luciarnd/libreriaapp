@@ -3,17 +3,20 @@ import { Component, OnInit } from '@angular/core';
 import { Autor } from '../../models/autor';
 import { AutorService } from '../../services/autor-service.service';
 import { NgForm } from '@angular/forms';
+import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-autor-list',
   templateUrl: './autor-list.component.html',
-  styleUrls: ['./autor-list.component.css']
+  styleUrls: ['./autor-list.component.css'],
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class AutorListComponent implements OnInit {
-
+  numfilas = [];
   autors: Autor[];
   editAutor: Autor;
   deleteAutor: Autor;
+  page: number = 1;
   constructor(private autorService: AutorService) {
    }
 
@@ -66,6 +69,7 @@ export class AutorListComponent implements OnInit {
     }
     );
   }
+
 
   public onOpenModal(autor: Autor, mode: string): void {
     const container = document.getElementById('main-container');

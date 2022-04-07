@@ -2,50 +2,45 @@
     padding: 10px;
 }
 
-.card-body {
-    padding: 20px 15px;
-
+ul {
+    padding: 0px;
 }
 
-.card-body i{
-    color: black;
-    text-align: center;
-    vertical-align: middle;
-}
-
-.card-body .btn:hover i{
-    color: white;
-
-}
-
-.card-body .btn {
-    margin-right: 10px;
-    height: 30px;
-    width: 30px;
-    padding: 0;
+#table ::ng-deep .w-72 {
+    width: 313px !important;
 }
 
 
-#addautor .btn {
-    margin-left: 15px;
-    height: 30px;
-    width: 30px;
-    padding: 0;
+#deletebutton ::ng-deep .c-button--alert,
+#editbutton ::ng-deep .c-button--primary {
+    background-color: transparent;
 }
 
-#addautor .btn i {
-    text-align: center;
-    vertical-align: middle;
+#deletebutton ::ng-deep .c-button--alert i,
+#editbutton ::ng-deep .c-button--primary i {
+    color: #0a0a0a;
 }
-#addautor .btn:hover i {
+
+#editbutton ::ng-deep .c-button--primary:hover {
+    background-color: #00607a;
+}
+
+#editbutton ::ng-deep .c-button--primary:hover i {
     color: white;
 }
 
+#deletebutton ::ng-deep .c-button--alert:hover{
+    background-color: #D22333;
+}
+
+#deletebutton ::ng-deep .c-button--alert:hover i{
+    color: white;
+}
 
 #titulo {
     display: inline;
     float: left;
-    margin: 20px 0px;
+    margin: 20px 10px;
 }
 
 #clear {
@@ -55,26 +50,24 @@
 #addautor {
     display: inline;
     float: right;
-    margin: 30px 8px;
+    margin: 30px 20px 30px 8px;
 }
 
-.list-group-item {
-    border: 0;
-    padding: 0;
-    margin: 5px;
+#addautor ::ng-deep .c-button--primary:hover {
+    background-color: transparent;
 }
 
-.list-group-item i {
-    margin: 0px 5px;
+#addautor ::ng-deep .c-button--primary:hover i, #addautor ::ng-deep .c-button--primary:hover {
+    color: #0a0a0a;
 }
 
-.list-group {
-    border-top: solid 1px rgb(184, 184, 184);
-    border-bottom: solid 1px rgb(184, 184, 184);
+#addautor i {
+    margin-left: 10px;
+    vertical-align: middle;
 }
 
-.m-0 {
-    width: 200px;
+#table-icon {
+    margin: 8px 10px 8px 0;
 }
 
 #obligatorio {
@@ -83,4 +76,52 @@
 
 .campoObligatorio {
     font-size: 13px;
+}
+
+
+.paginator ::ng-deep .ngx-pagination a:hover,
+.paginator ::ng-deep .ngx-pagination button:hover {
+    border: 1px solid  #8b8b8b;
+    color: black;
+    border-radius: 4px !important;
+}
+
+.paginator ::ng-deep .ngx-pagination .pagination-previous a::before,
+.paginator ::ng-deep .ngx-pagination .pagination-previous.disabled::before {
+    content: '<';
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+.paginator ::ng-deep .ngx-pagination .pagination-next a::after,
+.paginator ::ng-deep .ngx-pagination .pagination-next.disabled::after {
+    content: '>';
+    display: inline-block;
+    margin-left: 0.5rem;
+}
+
+
+.paginator ::ng-deep .ngx-pagination {
+    padding-left: 0px !important;
+}
+
+.paginator ::ng-deep .ngx-pagination .current {
+    background: #00607a !important;
+    border-radius: 4px !important;
+}
+
+.paginator ::ng-deep .ngx-pagination .current:hover {
+    background: #16474e !important;
+    border-radius: 4px !important;
+}
+
+
+.paginator ::ng-deep .ngx-pagination a,
+.paginator ::ng-deep .ngx-pagination button {
+    color: #0a0a0a;
+    display: block;
+    padding: 0.1875rem 0.625rem;
+    border-radius: 0;
+    margin-left: 5px;
+    margin-right: 5px;
 }

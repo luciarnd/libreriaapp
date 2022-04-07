@@ -1,36 +1,8 @@
-
-@font-face {
-    font-family: "Brandon Text"; src: url("//db.onlinewebfonts.com/t/38292514d8f80b45216b865422916b0b.eot"); src: url("//db.onlinewebfonts.com/t/38292514d8f80b45216b865422916b0b.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/38292514d8f80b45216b865422916b0b.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/38292514d8f80b45216b865422916b0b.woff") format("woff"), url("//db.onlinewebfonts.com/t/38292514d8f80b45216b865422916b0b.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/38292514d8f80b45216b865422916b0b.svg#Brandon Text") format("svg");
+.items ::ng-deep .py-4 {
+    padding-top: 19px !important;
+    padding-bottom: 19px !important;
 }
 
-nav {
-    position: sticky;
-    top: 0;
-    right: 0;
-}
-.nav-item a {
-    color: white;
+.items ::ng-deep a {
     text-decoration: none;
-    padding: 10px;
-    margin-left: 10px;
-
-}
-
-.navbar-brand {
-    font-size: 25px;
-    font-family: Brandon Text;
-
-}
-
-.nav-item a:hover {
-    color: rgb(255, 238, 0);
-}
-
-.btn:hover {
-    background-color: #343a40;
-    border: 0;
-}
-
-.dropdown-toggle {
-    border: 0;
 }

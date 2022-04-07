@@ -8,6 +8,10 @@ import { LibroListComponent } from './componentes/libro-list/libro-list.componen
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { InicioComponent } from './componentes/inicio/inicio.component';
+import { DesyAngularModule } from 'desy-angular';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxPaginationModule } from 'ngx-pagination';
+
 
 @NgModule({
   declarations: [
@@ -15,13 +19,16 @@ import { InicioComponent } from './componentes/inicio/inicio.component';
     AutorListComponent,
     CategoriaListComponent,
     LibroListComponent,
-    InicioComponent,
+    InicioComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    DesyAngularModule,
+    BrowserAnimationsModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
